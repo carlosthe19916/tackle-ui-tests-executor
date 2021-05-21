@@ -1,6 +1,9 @@
-name: CI Daily
+name: CI
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch: {}
@@ -16,7 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: konveyor/tackle-ui
           path: tackle-ui
       - name: Checkout
         uses: actions/checkout@v2
