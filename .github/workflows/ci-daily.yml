@@ -6,7 +6,12 @@ on:
       - master
   schedule:
     - cron: "0 0 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      ui:
+        required: false
+        default: "quay.io/konveyor/tackle-ui:main"
+        description: "The container image you want to use"
 
 jobs:
   ks8:
@@ -73,6 +78,13 @@ jobs:
           echo $external_ip;
           export endpoint=$external_ip;
           echo "CYPRESS_tackleUrl=https://$external_ip" >>$GITHUB_ENV'
+
+      - name: Override tackle-ui
+        if: ${{ github.event.inputs.ui != '' }}
+        run: |
+          kubectl set image deployment/tackle-ui tackle-ui=${{ github.event.inputs.ui }} -n tackle
+          kubectl wait deployment/tackle-ui --for condition=available --timeout=-1s -n tackle
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
