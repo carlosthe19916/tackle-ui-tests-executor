@@ -23,7 +23,8 @@ spec:
     spec:
       containers:
         - name: tackle-ui
-          image: docker.pkg.github.com/carlosthe19916/tackle-ui/tackle-ui:routerqueryfilters
+          # image: docker.pkg.github.com/carlosthe19916/tackle-ui/tackle-ui:routerqueryfilters
+          image: quay.io/konveyor/tackle-ui:main
           ports:
             - containerPort: 8080
               protocol: TCP
