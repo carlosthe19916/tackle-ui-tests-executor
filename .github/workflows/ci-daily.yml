@@ -80,7 +80,6 @@ jobs:
           echo "CYPRESS_tackleUrl=https://$external_ip" >>$GITHUB_ENV'
 
       - name: Override tackle-ui
-        if: ${{ github.event.inputs.ui != '' }}
         run: |
           kubectl set image deployment/tackle-ui tackle-ui=${{ github.event.inputs.ui }} -n tackle
           kubectl wait deployment/tackle-ui --for condition=available --timeout=-1s -n tackle
