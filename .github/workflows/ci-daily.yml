@@ -90,6 +90,7 @@ jobs:
           kubectl patch deployment tackle-ui \
           --patch '{"spec":{"template":{"spec":{"imagePullSecrets":[{"name": "gh-registry-key"}]}}}}' \
           -n tackle
+
       - name: Override tackle-ui
         run: |
           kubectl set image deployment/tackle-ui tackle-ui=${{ github.event.inputs.ui }} -n tackle
